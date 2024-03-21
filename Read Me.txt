@@ -1,0 +1,19 @@
+Binary Search Inspired Zoning
+What if we find the best zoning for a target takt for a given trade to improve their flow, and then try to overlap the zoning for each and see if it can work out across trades.
+Thus, we run this algorithm for each trade and see the result. Then we overlap all the zoning to find a resultant zoning that accommodates all borders and is the crudest. Starting with this we can make decisions to:
+•	Keep the zoning for trade with most workload and plan with faster trades covering multiple zones at once (Plan 1).
+•	Slow down faster trades to match the speed of others by reducing crew size (Plan2).
+•	Speed up slower trades to match the speed of others by increasing crew size (Plan3).
+•	Merge zones to reduce number of zones to match zoning for trades with less workloads. In that case slower trades crews can be increased (Plan4).
+Algorithm:
+1)	User provides the WD map (CSV file), stored as a data frame and a target Takt (User input floating point value).
+2)	Default values are set as: flag = 0, z = 1, depth=0, zone=None.
+3)	Function recursive_dataframe_division is called.
+4)	IF: zone is None, zone is initiated with zeros of the shape of WD data frame and go to 5); ELSE: go to 5).
+5)	IF: sum of all values in data frame <= target Takt, then go to 6), ELSE: go to 7).
+6)	Zoning map is updated for data frame cells with value z, and then z is incremented by 1.
+7)	The data frame is divided into df1, df2 by calling divide_dataframe function. The function divides vertically or horizontally depending on the longer side. IF: row_count <= col_count go to 8), ELSE: go to9).
+8)	divide vertically from the middle
+9)	divide horizontally from the middle
+10)	….
+11)	Prints out Zoning Layout and saves them as a CSV file in the directory .
